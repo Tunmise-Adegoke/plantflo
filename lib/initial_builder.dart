@@ -1,41 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:plantflo/screens/add_plants.dart';
+import 'package:plantflo/screens/home.dart';
+import 'package:plantflo/screens/new_plant_screen.dart';
 
-import 'home.dart';
 
-
-class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({Key? key}) : super(key: key);
 
   @override
-  _MainScreenState createState() => _MainScreenState();
+  _BottomNavBarState createState() => _BottomNavBarState();
 }
-int _selectedIndex = 0;
-class _MainScreenState extends State<MainScreen> {
-  List<Widget> pageList = <Widget>
-  [
+
+class _BottomNavBarState extends State<BottomNavBar> {
+
+  int _currentIndex = 0;
+  final screens = [
     Home(),
+    MyPlantScreen(),
+    NewPlantScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pageList[0],
+      body: screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: [
-          BottomNavigationBarItem(icon: Image.asset('assets/images/home.png'),label: 'Home'),
-          BottomNavigationBarItem(icon: Image.asset('assets/images/plant_pot.png'),label: 'My Plants'),
-          BottomNavigationBarItem(icon: Image.asset('assets/images/clipboard.png'),label: 'Todo list'),
-        ],
-        onTap: (int index) {
-          setState(() {
-            _selectedIndex =index;
-          });
-        },
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.lightGreen,
-        unselectedItemColor: Colors.black,
-        iconSize: 8,
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.home_filled),label: 'Home'),
+            BottomNavigationBarItem(icon: Icon(Icons.grass), label: 'My Plants'),
+            BottomNavigationBarItem(icon: Icon(Icons.add),label: 'Add Plants'),
+          ],
+          backgroundColor: Color(0xfffcf1ef),
+          selectedItemColor: Color(0xffa1ba9b),
+          unselectedItemColor: Colors.grey,
+          currentIndex: _currentIndex,
+          onTap: (index) => setState(() {
+            _currentIndex = index;
+          }),
       ),
     );
   }
