@@ -31,7 +31,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
             BottomNavigationBarItem(icon: Icon(Icons.add),label: 'Add Plants'),
           ],
           backgroundColor: Color(0xfffcf1ef),
-          selectedItemColor: Color(0xffa1ba9b),
+          selectedItemColor: Colors.lightGreen,
+          // Color(0xffa1ba9b),
           unselectedItemColor: Colors.grey,
           currentIndex: _currentIndex,
           onTap: (index) => setState(() {

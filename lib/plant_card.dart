@@ -20,25 +20,52 @@ class PlantCard extends StatelessWidget {
          MaterialPageRoute(builder: (context) => PlantDetails(),
          ),);
         },
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-            elevation: 0,
-            child: Hero(
-              tag: Text(value.first.plantTitle),
-              child: GridTile(
-                footer: Container(
-                  color: Colors.white70,
-                  height: 40,
-                  child: ListTile(
-                    leading: Text(value.first.plantTitle)),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                child: Image.asset(value.first.plantImage,
-                  fit: BoxFit.cover,),
+                child: Column(
+                  children: [
+                    Container(
+                      height: 200,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(30),
+                            bottomRight: Radius.circular(30),
+                        topRight: Radius.circular(20),
+                        topLeft: Radius.circular(20)),
+                        image: DecorationImage(image: AssetImage(value.first.plantImage),
+                            fit: BoxFit.cover
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+                    Text(value.first.plantTitle,
+                      style:  TextStyle(
+                        fontFamily: 'Nunito',
+                        fontSize: 17,
+                        fontWeight: FontWeight.normal,
+                      ),),
+                  ],
+                ),
               ),
-                ),
             ),
-    );
+            ),
+          );
+
+              // child: Hero(
+              //   tag: Text(value.first.plantTitle),
+                // child: GridTile(
+                //   footer: Container(
+                //     color: Colors.white70,
+                //     height: 40,
+                //     child: ListTile(
+                //       leading: Text(value.first.plantTitle)),
+                //   ),
+
   }
 }

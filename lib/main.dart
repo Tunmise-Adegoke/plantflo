@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:plantflo/initial_builder.dart';
 import 'package:plantflo/services/plant_products.dart';
 import 'package:plantflo/services/plant_service.dart';
+import 'package:plantflo/themes.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  Provider.debugCheckInvalidValueType = null;
   runApp(const MyApp());
 }
 
@@ -28,6 +30,9 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
          debugShowCheckedModeBanner: false,
+          // themeMode: ThemeMode.system,
+          // theme: MyThemes.lightTheme,
+          // darkTheme: MyThemes.darkTheme,
           home: BottomNavBar(),
         ),
       );

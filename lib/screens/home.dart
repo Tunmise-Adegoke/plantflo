@@ -48,18 +48,18 @@ class _HomeState extends State<Home> {
                   style: TextStyle(
                     fontFamily: 'Nunito',
                     fontSize: 30,
-                    fontWeight: FontWeight.normal,
+                    fontWeight: FontWeight.bold,
                   ),),
                   SizedBox(height: 5,),
                   Text('plant for your home',
                     style: TextStyle(
                       fontFamily: 'Nunito',
                       fontSize: 30,
-                      fontWeight: FontWeight.normal,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 10,
                   ),
                   Expanded(
                     child: GridView.builder(
@@ -71,6 +71,7 @@ class _HomeState extends State<Home> {
                       padding: EdgeInsets.only(left: 10, right: 10),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
+                        childAspectRatio: (1/1.5)
                       ),
                       itemBuilder: (BuildContext context, int index) {
                         return PlantCard();

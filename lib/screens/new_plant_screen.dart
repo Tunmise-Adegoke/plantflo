@@ -5,14 +5,22 @@ import 'add_plants.dart';
 import 'home.dart';
 
 class NewPlantScreen extends StatefulWidget {
-  const NewPlantScreen({Key? key}) : super(key: key);
+   NewPlantScreen({Key? key}) : super(key: key);
 
   @override
   _NewPlantScreenState createState() => _NewPlantScreenState();
+
 }
 
 class _NewPlantScreenState extends State<NewPlantScreen> {
   @override
+  TextEditingController nameText = TextEditingController();
+
+  @override
+  void dispose(){
+    nameText.dispose();
+    super.dispose();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -24,7 +32,6 @@ class _NewPlantScreenState extends State<NewPlantScreen> {
         ),),
         elevation: 0,
         backgroundColor: Colors.lightGreen,
-        toolbarHeight: 70,
         leading: BackButton(
           onPressed: () {
             Navigator.pushReplacement(context,
@@ -32,6 +39,7 @@ class _NewPlantScreenState extends State<NewPlantScreen> {
           },
         ),
       ),
+      backgroundColor: Color(0xfffcf1ef),
       body: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,9 +62,14 @@ class _NewPlantScreenState extends State<NewPlantScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 40, right: 50),
               child: TextField(
+                controller: nameText,
+                cursorColor: Colors.lightGreen,
                 decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.grass_rounded),
-                  border: UnderlineInputBorder(
+                  prefixIcon: Icon(Icons.grass_rounded, color: Colors.lightGreen,),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.lightGreen,
+                    )
                   ),
                   hintText: 'Name this plant',
                   hintStyle: TextStyle(
