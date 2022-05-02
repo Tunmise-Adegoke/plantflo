@@ -16,12 +16,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-      Provider<PlantService>(
-          create: (_) => PlantService(
-        id: '',
-        plantTitle: '',
-        plantImage: ''),
-      ),
+      // Provider<PlantService>(
+      //     create: (_) => PlantService(
+      //   id: '',
+      //   plantTitle: '',
+      //   plantImage: ''),
+      // ),
           Provider<PlantProducts>(
             create: (_) => PlantProducts(),
           )

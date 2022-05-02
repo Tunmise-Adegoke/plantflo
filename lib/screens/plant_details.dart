@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:plantflo/model/plant_item.dart';
 import 'package:plantflo/screens/add_plants.dart';
+import 'package:plantflo/services/plant_products.dart';
 import 'package:plantflo/services/plant_service.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,7 @@ class _PlantDetailsState extends State<PlantDetails> {
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
- final value = Provider.of<PlantService>(context, listen: false);
+ final value = Provider.of<PlantProducts>(context, listen: false).plantproducts;
     return Scaffold(
       body: Container(
           decoration: BoxDecoration(
@@ -57,7 +58,7 @@ class _PlantDetailsState extends State<PlantDetails> {
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(50), bottomLeft: Radius.circular(50),),
                       image: DecorationImage(
-                        image: AssetImage(value.plantImage),
+                        image: AssetImage(value.first.plantImage),
                       fit: BoxFit.cover,
                       alignment: Alignment.center),
                     ),
@@ -70,7 +71,7 @@ class _PlantDetailsState extends State<PlantDetails> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(value.plantTitle,
+                  Text(value.first.plantTitle,
                     style: TextStyle(
                         fontFamily: 'Nunito',
                         fontSize: 30,

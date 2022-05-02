@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:plantflo/screens/plant_details.dart';
+import 'package:plantflo/services/plant_products.dart';
 import 'package:plantflo/services/plant_service.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +13,7 @@ class PlantCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final value = Provider.of<PlantService>(context, listen: false);
+    final value = Provider.of<PlantProducts>(context, listen: false).plantproducts;
     return GestureDetector(
         onTap: () {
          Navigator.push(context,
@@ -25,15 +26,15 @@ class PlantCard extends StatelessWidget {
             ),
             elevation: 0,
             child: Hero(
-              tag: Text(value.plantTitle),
+              tag: Text(value.first.plantTitle),
               child: GridTile(
                 footer: Container(
                   color: Colors.white70,
                   height: 40,
                   child: ListTile(
-                    leading: Text(value.plantTitle)),
+                    leading: Text(value.first.plantTitle)),
                 ),
-                child: Image.asset(value.plantImage,
+                child: Image.asset(value.first.plantImage,
                   fit: BoxFit.cover,),
               ),
                 ),
