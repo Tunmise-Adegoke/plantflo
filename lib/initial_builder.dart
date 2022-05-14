@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:plantflo/screens/add_plants.dart';
+import 'package:plantflo/screens/plant_list_screen.dart';
 import 'package:plantflo/screens/home.dart';
 import 'package:plantflo/screens/new_plant_screen.dart';
 

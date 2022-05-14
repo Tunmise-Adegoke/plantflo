@@ -1,26 +1,35 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:plantflo/model/plantListmodel.dart';
 import 'package:plantflo/model/plant_item.dart';
-import 'package:plantflo/screens/add_plants.dart';
+import 'package:plantflo/screens/plant_list_screen.dart';
+import 'package:plantflo/services/plantList.dart';
 import 'package:plantflo/services/plant_products.dart';
-import 'package:plantflo/services/plant_service.dart';
+import 'package:plantflo/model/plant_service.dart';
 import 'package:provider/provider.dart';
 
 
 class PlantDetails extends StatefulWidget {
-   PlantDetails({Key? key}) : super(key: key);
+  // final PlantService plantProducts;
+  final int index;
+   PlantDetails({Key? key,
+     // required this.plantProducts,
+     required this.index}) : super(key: key);
 
   @override
   _PlantDetailsState createState() => _PlantDetailsState();
 }
-
 class _PlantDetailsState extends State<PlantDetails> {
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
- final value = Provider.of<PlantProducts>(context, listen: false).plantproducts;
+    final cart = Provider.of<PlantList>(context).plantItems;
+    final value = Provider.of<PlantProducts>(context, listen: false).plantproducts;
+    int index = widget.index;
+    ScreenUtil().setSp(30);
     return Scaffold(
       body: Container(
           decoration: BoxDecoration(
@@ -36,7 +45,7 @@ class _PlantDetailsState extends State<PlantDetails> {
                   // w * 0.75,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage(value.first.plantImage),
+                        image: AssetImage(value[index].plantImage),
                         fit: BoxFit.cover,
                         // alignment: Alignment.center
                     ),
@@ -59,13 +68,16 @@ class _PlantDetailsState extends State<PlantDetails> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(value.first.plantTitle,
-                          style: TextStyle(
-                              fontFamily: 'Nunito',
-                              fontSize: 30,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.black
-                          ),),
+                        SizedBox(
+                          height: 50,
+                          child: Text(value[index].plantTitle,
+                            style: TextStyle(
+                                fontFamily: 'Nunito',
+                                fontSize: 30.sp,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black
+                            ),),
+                        ),
                         Text('desc',
                           style: TextStyle(
                               fontFamily: 'Nunito',
@@ -74,38 +86,36 @@ class _PlantDetailsState extends State<PlantDetails> {
                               color: Colors.black
                           ),
                         ),
-                     Row(
-                       mainAxisAlignment:  MainAxisAlignment.spaceEvenly,
-                       children: [
-                                   IconCard(icon: 'assets/images/celsius.png',
-                                   desc: 'Tempearture',
-                                   number: '60',),
-                                   SizedBox(width: 10,),
-                                   IconCard(icon: 'assets/images/tree.png',
-                                   desc: 'Height',
-                                   number: '70',),
-                                   SizedBox(width: 10,),
-                                   IconCard(icon: 'assets/images/brightness.png',
-                                   desc: 'Sunlight',
-                                   number: '50',),
-                                   SizedBox(width: 10,),
-                                   IconCard(icon: 'assets/images/drops.png',
-                                   desc: 'Water',
-                                   number: '30',),
-                       ],
+                     SingleChildScrollView(
+                       scrollDirection: Axis.horizontal,
+                       child: Row(
+                         mainAxisAlignment:  MainAxisAlignment.spaceEvenly,
+                         children: [
+                                     IconCard(icon: 'assets/images/celsius.png',
+                                     desc: 'Tempearture',
+                                     number: '60',),
+                                     SizedBox(width: 10,),
+                                     IconCard(icon: 'assets/images/tree.png',
+                                     desc: 'Height',
+                                     number: '70',),
+                                     SizedBox(width: 10,),
+                                     IconCard(icon: 'assets/images/brightness.png',
+                                     desc: 'Sunlight',
+                                     number: '50',),
+                                     SizedBox(width: 10,),
+                                     IconCard(icon: 'assets/images/drops.png',
+                                     desc: 'Water',
+                                     number: '30',),
+                         ],
+                       ),
                      ),
                         SizedBox(height: 30,),
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: ElevatedButton.icon(
                             onPressed: () {
-                              // Provider.of<Item>(context).addItem();
-                              Navigator.pop(context);
-
-                              //  Navigator.push(context,
-                              //  MaterialPageRoute(
-                              //  builder: (context) =>
-                              //    MyPlantScreen(),),);
+                              context.read<PlantList>().add(value[index]);
+                              Navigator.of(context).pop();
                             },
                             label: Text('ADD'),
                             icon: Icon(Icons.add),
@@ -180,13 +190,13 @@ class IconCard extends StatelessWidget {
               Text('${desc}',
                 style:  TextStyle(
                   fontFamily: 'Nunito',
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.normal,
                 ),),
               Text('${number}',
                 style:  TextStyle(
                   fontFamily: 'Nunito',
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.normal,
                 ),)
             ],

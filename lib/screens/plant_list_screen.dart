@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:plantflo/initial_builder.dart';
 import 'package:plantflo/screens/home.dart';
+import 'package:plantflo/services/plantList.dart';
 import 'package:plantflo/services/plant_products.dart';
-import 'package:plantflo/services/plant_service.dart';
+import 'package:plantflo/model/plant_service.dart';
 import 'package:provider/provider.dart';
 
 class MyPlantScreen extends StatefulWidget {
-
+ late final int index;
   @override
   _MyPlantScreenState createState() => _MyPlantScreenState();
 }
@@ -17,6 +18,7 @@ class _MyPlantScreenState extends State<MyPlantScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<PlantList>(context).plantItems;
     final value = Provider.of<PlantProducts>(context, listen: false).plantproducts;
     return Scaffold(
       appBar: AppBar(
@@ -36,9 +38,27 @@ class _MyPlantScreenState extends State<MyPlantScreen> {
         ),
       ),
       backgroundColor: Color(0xfffcf1ef),
-      body: ListView.builder(
+      body: cart.length == 0
+      ? Center(
+          child: Column(
+            children: [
+              SizedBox(height: 100,),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: NoitemCard(),
+              ),
+              Text(
+                  'You are seem lonely, add Plant to list!',
+                style: TextStyle(
+                  fontFamily: 'Nunito',
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),),
+            ],
+          ))
+      : ListView.builder(
         scrollDirection: Axis.vertical,
-        itemCount: value.length,
+        itemCount: cart.length,
           itemBuilder: (context, index) {
         return Card(
           margin: EdgeInsets.symmetric(
@@ -58,12 +78,12 @@ class _MyPlantScreenState extends State<MyPlantScreen> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(40),
                 image: DecorationImage(image:
-                AssetImage('assets/images/PPP.jpg',),
+                AssetImage(cart[index].plantImage),
                   fit: BoxFit.cover,),
               ),
               // child: Image.asset('assets/images/PPP.jpg',
               ),
-            title: Text('Plant Name',
+            title: Text(cart[index].plantTitle,
               style: TextStyle(
                 fontFamily: 'Nunito',
                 fontSize: 20,
@@ -77,46 +97,24 @@ class _MyPlantScreenState extends State<MyPlantScreen> {
   }
 }
 
+class NoitemCard extends StatelessWidget {
+  const NoitemCard({
+    Key? key,
+  }) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 300,
+      width: 300,
+      decoration: BoxDecoration(
+        color: Colors.lightGreen,
+        borderRadius: BorderRadius.circular(20),
+        image: DecorationImage(
+            image: AssetImage('assets/images/no plants image.jpg'),
+        fit: BoxFit.cover),
+      ),
+    );
+  }
+}
 
-
-// class PlantListCard extends StatelessWidget {
-//   const PlantListCard({
-//     Key? key,
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       child: Container(
-//         padding: EdgeInsets.only(left: 20, top: 10),
-//         height: 70,
-//         decoration: BoxDecoration(
-//           borderRadius: BorderRadius.circular(30)
-//         ),
-//         child: Row(
-//           children: [
-//             CircleAvatar(
-//               backgroundColor: Colors.blue,
-//               radius: 30,
-//             ),
-//             SizedBox(width: 30,),
-//             Column(
-//               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//               children: [
-//                 Text('Title',
-//                 style: TextStyle(
-//                   fontFamily: 'Nunito',
-//                   fontSize: 15,
-//                   fontWeight: FontWeight.normal,
-//                 ),),
-//                 Text('Other name',
-//                 ),),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

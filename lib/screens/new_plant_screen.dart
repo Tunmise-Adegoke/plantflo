@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plantflo/initial_builder.dart';
 
-import 'add_plants.dart';
+import 'plant_list_screen.dart';
 import 'home.dart';
 
 class NewPlantScreen extends StatefulWidget {
@@ -56,7 +56,7 @@ class _NewPlantScreenState extends State<NewPlantScreen> {
             SizedBox(height: 20,),
             CircleAvatar(
               backgroundColor: Colors.lightGreen,
-              radius: 80,
+              radius: 90,
             ),
             SizedBox(height: 20,),
             Padding(
