@@ -14,8 +14,8 @@ class PlantList extends ChangeNotifier{
     _plantproducts.add(plantproduct);
     notifyListeners();
   }
-  void remove(PlantService _plantProducts){
-    _plantproducts.remove(_plantProducts);
+  void remove(int index){
+    _plantproducts.removeAt(index);
     notifyListeners();
   }
   int get count{
